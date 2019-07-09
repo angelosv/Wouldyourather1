@@ -3,8 +3,14 @@ import { connect } from 'react-redux'
 import MenuNav from '../../components/MenuNav'
 import Avatar from 'react-avatar';
 import { getAuthedUser } from '../../actions/authedUser'
-import { Redirect } from 'react-router-dom'
 import ControlledTabs from './ControlledTabs'
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect,
+    withRouter
+} from 'react-router-dom'
 
 class Home extends Component {
     constructor(props, context) {
@@ -17,13 +23,15 @@ class Home extends Component {
     state = {
         loading: true,
         showUnansweredQuestions: true,
+        redirectToReferrer: false
+
     }
     render(){
         const { authedUser, users } = this.props
 
-        if (authedUser === null) {
-            return <Redirect to='/' />
-        }
+       
+
+
 
         return(
             <div>

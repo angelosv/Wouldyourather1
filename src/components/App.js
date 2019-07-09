@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import addQuestion from './addQuestion'
 import Home from './Home'
@@ -7,38 +6,36 @@ import Login from './Login'
 import leaderBoard from './leaderBoard'
 import LoadingBar from 'react-redux-loading'
 import { handleInitialData } from '../actions/shared'
+import PrivateRoute from './PrivateRoute'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
+import Routes from './routes'
 
-
+const Public = () => <h3>DEBES REGISTRARTE</h3>
+const Protected = () => <h3>Protected</h3>
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
 
   render() {
+    const { authedUser} = this.props
     return (
-      <Router>
-        <Fragment>
-          <LoadingBar />
-          <div className="container">
-            {this.props.loading === true
-              ? null
-              : <div>
-                <Route path='/' exact component={Login} />
-                <Route path='/home/' component={Home} />
-                <Route path='/new' component={addQuestion} />
-                <Route path='/leaderboard' component={leaderBoard} />
-              </div>
-            }
-          </div>
-        </Fragment>
-      </Router>
+      <Routes authedUser={authedUser}/>
     );
   }
 }
 
-function mapStateToProps({ selectUser }) {
+function mapStateToProps({ selectUser, authedUser }) {
   return {
-    loading: selectUser === null
+    loading: selectUser === null,
+    authedUser: authedUser
+
   }
 }
 

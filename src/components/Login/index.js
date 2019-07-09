@@ -11,7 +11,9 @@ class Login extends Component {
         users: {},
         selectUser: null,
         redirectToNewPage: false,
-        userID: ''
+        userID: '',
+        redirectToReferrer: false
+
     }
 
 
@@ -20,19 +22,25 @@ class Login extends Component {
         this.props.selectedUser(user)
             .then(() => this.setState({ userID: user.id }))
             .then(() => this.setState({ redirectToNewPage: true }))
-
+            .then(this.setState(() => ({
+                redirectToReferrer: true
+            })))
     }
     render() {
 
         const { users } = this.props
         const { redirectToNewPage, userID } = this.state
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state
 
         if (redirectToNewPage) {
             return (
                 <Redirect to={"/home/" + userID} />
             )
         }
-
+        if (redirectToReferrer === true) {
+            return <Redirect to={from} />
+        }
         return(
             <Container className="text-center">
                 <MenuNav/>

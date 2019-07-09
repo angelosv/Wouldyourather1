@@ -8,10 +8,10 @@ import { Container } from 'react-bootstrap'
 class leaderBoard extends Component {
     render(){
             const { userArray, authedUser } = this.props
+      const { from } = this.props.location.state || { from: { pathname: '/' } }
+
 console.log(userArray, authedUser)
-    if (authedUser === null) {
-      return <Redirect to='/' />
-    }
+
         return(
             <div>
                 <MenuNav/>
