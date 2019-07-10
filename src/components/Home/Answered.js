@@ -43,7 +43,8 @@ function mapStateToProps({ authedUser, questions, users }){
         authedUser: authedUser,
         questions: questions, 
         users: users, 
-        answeredQuestions: Object.values(answeredQuestions)
+        answeredQuestions: Object.values(answeredQuestions),
+
 }}
 
 

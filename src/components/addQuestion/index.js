@@ -14,13 +14,14 @@ class addNewQuestion extends Component {
     handleChangeOptionOne = (e) => {
         const optionOne = e.target.value
 
-        this.setState({ optionOne: optionOne });
+        this.setState({ optionOne: optionOne })
     }
 
     handleChangeOptionTwo = (e) => {
         const optionTwo = e.target.value
 
-        this.setState({ optionTwo: optionTwo });
+        this.setState({ optionTwo: optionTwo })
+        console.log('OPTION 2:',optionTwo)
     }
 
     handleSubmit = (e) => {
@@ -28,7 +29,7 @@ class addNewQuestion extends Component {
 
         const { optionOne, optionTwo } = this.state
         const { dispatch } = this.props
-
+        console.log('NEW QUESTION', optionOne, optionTwo)
         dispatch(addQuestion(optionOne, optionTwo));
         this.setState({ userID: true });
         this.setState({ redirectToNewPage: true });
@@ -55,17 +56,20 @@ class addNewQuestion extends Component {
                 <Card.Body>
                     <Card.Title>Would you rather...</Card.Title>
                     <Card.Text>
-                    <Form onSubmit={this.handleSubmit}>
-                            <Form.Group controlId="">
-                            <Form.Control type="text" q1="1" placeholder="Enter Option One" onChange={this.handleChange} />
-                                <Form.Text className="text-muted">
-                                </Form.Text>
-                            </Form.Group>
-                            <Form.Group>or</Form.Group>
-                            <Form.Group controlId="">
-                                <Form.Control type="text" placeholder="Enter Option Two" />
-                            </Form.Group>
-
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group controlId="">
+                                    <Form.Control type="text" placeholder="Enter Option One" onChange={this.handleChangeOptionOne} />
+                                        <Form.Text className="text-muted">
+                                        </Form.Text>
+                                </Form.Group>
+                                
+                                <Form.Group>or</Form.Group>
+                                <Form.Group controlId="">
+                                    <Form.Control type="text" placeholder="Enter Option One" onChange={this.handleChangeOptionTwo} />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                               
                             <Button variant="primary" type="submit">
                             Submit
                             </Button>

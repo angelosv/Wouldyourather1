@@ -2,48 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Avatar from 'react-avatar'
 import { savingQuestionAnswer } from '../../actions/questions'
+import { withRouter } from 'react-router-dom';
 
 class QuestionCard extends Component {
 
-state={
-    answer: ''
-}
-
-    handleChange = (e) => {
-        const answer = e.target.value
-
-        this.setState({ answer: answer })
-}
-
-handleSubmit = (e) => {
-        e.preventDefault();
-    const { answer } = this.state
-    const { dispatch, questionID } = this.props
-
-    console.log(this.props)
-    dispatch(savingQuestionAnswer(questionID, answer))
-
-    
-
+    constuctor() {
+        this.loadQuestionDetails = this.routeChange.bind(this);
     }
 
 
+
+    loadQuestionDetails(e, questionID) {
+        let path = `/questions/` + questionID
+        this.props.history.push(path)    }
+
 render(){
 
-    const {users, authedUser} = this.props
+    const { users, author, questionID} = this.props
+    const avatar =  users.users[author].avatarURL
+
    return(
-       <div className="card">
-           <form onSubmit={this.handleSubmit}>
-               <Avatar/>
+       <div className="card" onClick={(e) => this.loadQuestionDetails(e, questionID)}>
+           <Avatar src={avatar}/>
                <h3> Would you rather... </h3>
-               <input type='radio' name='option' value='optionOne' id='optionOne' onChange={this.handleChange} />
                <label className="question-choice" htmlFor='optionOne'> {this.props.optionOne} </label>
                <br />
-               <input type='radio' name='option' value='optionTwo' id='optionTwo' onChange={this.handleChange} />
                <label className="question-choice" htmlFor='optionTwo'>{this.props.optionTwo}</label>
                <br />
-               <input className="question-button" type='submit' />
-    </form>
 
        </div>
    )
@@ -59,4 +44,4 @@ return{
 }
 }
 
-export default connect(mapStateToProps)(QuestionCard)
+export default withRouter(connect(mapStateToProps)(QuestionCard))

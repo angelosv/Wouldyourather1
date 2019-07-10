@@ -26,6 +26,7 @@ console.log(userArray, authedUser)
                     answeredResults={user.answeredResults}
                     questionsResults={user.questionsResults}
                     ranking={user.ranking}
+                     answeredResults={user.answeredResults}
                     />
                  ))   
                     

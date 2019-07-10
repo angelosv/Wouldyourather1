@@ -1,15 +1,17 @@
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch , Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Home from './Home'
 import Login from './Login'
 import addQuestion from './addQuestion'
 import leaderBoard from './leaderBoard'
 import { handleInitialData } from '../actions/shared'
+import QuestionDetails from './QuestionDetalis'
 import Loged from './logged'
-const Public = () => <h3>DEBES REGISTRARTE</h3>
+import NotFound from './NotFound'
+
 const Protected = () => <h3>Protected</h3>
 
 class Routes extends Component {
@@ -26,24 +28,31 @@ class Routes extends Component {
         console.log('authedUser ', authedUser);
 
         return (
-            <BrowserRouter>
-                <Loged authed={authedUser}/>
-                    {this.props.loading === true
+            <div>
+                <Loged authed={authedUser} />
+                {this.props.loading === true
                     ? null
-                    : 
-                    <div>
+                    :
+                    <BrowserRouter>
+
+                    <Switch>
 
                         <Route path='/' exact component={Login} />
                         <Route path='/login' exact component={Login} />
                         <PrivateRoute path='/home/' component={Home} authed={authedUser} />
-                        <PrivateRoute path='/new' component={addQuestion} authed={authedUser}/>
-                        <PrivateRoute path='/leaderboard' component={leaderBoard} authed={authedUser}/>
+                        <PrivateRoute path='/new' component={addQuestion} authed={authedUser} />
+                        <PrivateRoute exact path="/questions/:id" component={QuestionDetails} authed={authedUser} />
+                        <PrivateRoute path='/leaderboard' component={leaderBoard} authed={authedUser} />
                         <PrivateRoute path='/protected' component={Protected} authed={authedUser} />
-                    </div>
+                        <Route component={NotFound} />
 
-                }
-            </BrowserRouter>
+                    </Switch>
+                    </BrowserRouter>
 
+                                }
+
+                                
+            </div>
         );
     }
 }

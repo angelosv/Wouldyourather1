@@ -6,7 +6,7 @@ import Avatar from 'react-avatar';
 class CardLeader extends Component{
     render(){
 
-        const { id, avatarUrl, name, answeredResults, questionsResults, ranking } = this.props
+        const { id, avatarUrl, name, answeredResults, questionsResults, ranking,  } = this.props
 console.log('THISPROPS', this.props)
         return(
             <div>
