@@ -2,8 +2,9 @@ import React, { Component} from 'react'
 import { connect } from 'react-redux';
 import { savingQuestionAnswer } from '../actions/questions'
 import Avatar from 'react-avatar'
-import MenuNav from './MenuNav'
-
+import {
+    Redirect
+} from 'react-router-dom'
 
 class QuestionDetalis extends Component {
     state = {
@@ -20,23 +21,29 @@ class QuestionDetalis extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { answer } = this.state
-        const { dispatch, questionID } = this.props
-
-        console.log('Aqui si qu esi',this.props.match.params.id)
         this.props.savingQuestionAnswer(this.state.answer)
         this.setState({ answered: true })
-
-
-
     }
 
     render(){
+        const { match } = this.props
+        const { questions, question, answer, total, percOne, percTwo, answered } = this.props
+        const { id } = match.params
+        console.log('QUESTION: ', questions)
 
-        const { question, answer, total, percOne, percTwo, answered } = this.props
-        console.log('ANSWERED',this.state.answered)
+        const QuestionIDExists = questions.hasOwnProperty(id)
+
+        
+        console.log('QUESTION: ', QuestionIDExists)
+
+        if (QuestionIDExists === false) {
+            return <Redirect to={'/'} />
+        }
+
+
+       
         return(
-            <div><MenuNav/>
+            <div>
                 <div className="card">
                     <form onSubmit={this.handleSubmit}>
                         <Avatar />
@@ -84,22 +91,39 @@ function financial(x) {
 }
 
 function mapStateToProps({ questions, users, authedUser }, { match }) {
+   
     let answer, percOne, percTwo, total
-    const answers = users[authedUser.id].answers;
     const { id } = match.params
-    const question = questions[id];
-    total = question.optionOne.votes.length + question.optionTwo.votes.length;
 
-    console.log('ID and Answers', id, answers, question)
+    const question = questions[id];
+    if (questions.hasOwnProperty(id)) {
+        
+
+    
+    total = question.optionOne.votes.length + question.optionTwo.votes.length;
+    
+        console.log('WHATTTT')
+
     percOne = financial((question.optionOne.votes.length / total) * 100);
     percTwo = financial((question.optionTwo.votes.length / total) * 100);
+ 
 
     return {
         question,
         answer,
         total,
         percOne,
-        percTwo
+        percTwo,
+        questions
+    
+}
+
+    }
+
+    return {
+ 
+        questions
+
     }
 }
 
@@ -107,7 +131,6 @@ function mapStateToProps({ questions, users, authedUser }, { match }) {
 
 function mapDispatchToProps(dispatch, props) {
     const { id } = props.match.params;
-
     return {
         savingQuestionAnswer: (answer) => {
             dispatch(savingQuestionAnswer(id, answer))

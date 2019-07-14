@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux' 
-import MenuNav from '../../components/MenuNav'
 import Avatar from 'react-avatar';
 import { getAuthedUser } from '../../actions/authedUser'
 import ControlledTabs from './ControlledTabs'
@@ -29,14 +28,18 @@ class Home extends Component {
     render(){
         const { authedUser, users } = this.props
 
-       
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state
+
+        if (redirectToReferrer === true) {
+            return <Redirect to={from} />
+        }
 
 
 
         return(
             <div>
             
-                <MenuNav/>
                 <Avatar name="Foo Bar" src={authedUser.avatarURL} />
                 <h1>{authedUser.name}</h1>
                 <ControlledTabs />

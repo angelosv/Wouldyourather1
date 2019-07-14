@@ -31,7 +31,6 @@ class addNewQuestion extends Component {
         const { dispatch } = this.props
         console.log('NEW QUESTION', optionOne, optionTwo)
         dispatch(addQuestion(optionOne, optionTwo));
-        this.setState({ userID: true });
         this.setState({ redirectToNewPage: true });
     }
     render(){
@@ -40,16 +39,12 @@ class addNewQuestion extends Component {
         const { optionOne, optionTwo, redirectToNewPage } = this.state
         console.log('Auth: ',
         authedUser)
-        if (redirectToNewPage) {
-            return (
-                <Redirect to={"/home/" + authedUserID} />
-            )
+        if (this.state.redirectToNewPage) {
+            return <Redirect to='/home' />
         }
-
         
         return(
             <div>
-            <MenuNav/>
             <h1>NewQuestion</h1>
             <Card>
                 <Card.Header>Create a new Question</Card.Header>

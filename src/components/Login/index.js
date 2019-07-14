@@ -16,16 +16,10 @@ class Login extends Component {
 
     }
 
-
     handleSubmit = (e, user) => {
-
-        this.props.selectedUser(user)
-            .then(() => this.setState({ userID: user.id }))
-            .then(() => this.setState({ redirectToNewPage: true }))
-            .then(this.setState(() => ({
-                redirectToReferrer: true
-            })))
+console.log('USER', user)
     }
+
     render() {
 
         const { users } = this.props
@@ -44,7 +38,10 @@ class Login extends Component {
         return(
             <Container className="text-center">
                 <MenuNav/>
-
+                <div>
+                    <p>You must log in to view the page</p>
+                    <button onClick={this.handleSubmit}>Log in</button>
+                </div>
                 <Row className="text-center ">
                     <Col xs="12" sm="12" lass="text-center "><div className="card text-center"><h3>Select User:</h3>
                         <Form>
@@ -55,7 +52,7 @@ class Login extends Component {
                                 <Dropdown.Menu>
                                     {
                                         Object.keys(users).map(user =>
-                                            <Dropdown.Item key={users[user].id} eventKey={user} value={user} onSelect={(e) => this.handleSubmit(e, users[user], users[user].id)} >
+                                            <Dropdown.Item key={users[user].id} eventKey={user} value={user} onSelect={(e) => this.login(e, users[user], users[user].id)}>
                                                 {users[user].name}
 
                                             </Dropdown.Item>)

@@ -16,17 +16,23 @@ import {
 } from 'react-router-dom'
 import Routes from './routes'
 
-const Public = () => <h3>DEBES REGISTRARTE</h3>
-const Protected = () => <h3>Protected</h3>
+
 class App extends Component {
+state ={
+          redirectToReferrer: false
+
+}
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
 
   render() {
+
+    
     const { authedUser} = this.props
     return (
-      <Routes authedUser={authedUser}/>
+      
+      <Routes authedUser={authedUser}/> 
     );
   }
 }

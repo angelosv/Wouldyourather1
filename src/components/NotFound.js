@@ -1,12 +1,17 @@
 import React from "react"
-import { Link } from 'react-router-dom';
+import { Card, CardBody, CardHeader} from 'reactstrap';
+import CardTitle from "reactstrap/es/CardTitle";
 
+const NotFound = ({ history }) => (
+  <Card>
+    <CardHeader>404</CardHeader>
+    <CardBody>
+      <CardTitle>Page Not Found</CardTitle>
 
-const NotFound = () => (
-  <div>
-    <center><Link to="/">Return to Home Page</Link></center>
-  </div>
+    </CardBody>
+  </Card>
 );
+
 
 
 export default NotFound

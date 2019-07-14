@@ -13,20 +13,21 @@ class Answered extends Component {
 
     render() {
         const { authedUser, questions, users, answeredQuestions } = this.props
+        console.log('answeredQuestions',answeredQuestions)
         return (
             <div>
                 {
                     answeredQuestions.map(question => (
-                            <UserCard
-                                key={question.id}
-                                author={question.author}
-                                optionOne={question.optionOne.text}
-                                optionTwo={question.optionTwo.text}
-                                userID={question.author}
-                                optionOneVotes={question.optionOne.votes}
-                                optionTwoVotes={question.optionTwo.votes}
-                                
-                            />
+                        <UserCard
+                            key={question.id}
+                            author={question.author}
+                            optionOne={question.optionOne.text}
+                            optionTwo={question.optionTwo.text}
+                            userID={question.author}
+                            optionOneVotes={question.optionOne.votes}
+                            optionTwoVotes={question.optionTwo.votes}
+
+                        />
                     )
                     )
                 }
@@ -35,6 +36,7 @@ class Answered extends Component {
     }
 }
 function mapStateToProps({ authedUser, questions, users }){
+    console.log('answeredQuestions', authedUser, users)
 
     let answeredQuestions = {}
     answeredQuestions = Object.values(questions).filter((question) =>

@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import MenuNav from '../../components/MenuNav'
 import CardLeader from './cardLeader'
 import { connect } from 'react-redux'
 import { Container } from 'react-bootstrap'
 
 class leaderBoard extends Component {
+  state = {
+    redirectToReferrer: false
+  }
     render(){
             const { userArray, authedUser } = this.props
       const { from } = this.props.location.state || { from: { pathname: '/' } }
+      const { redirectToReferrer } = this.state
 
-console.log(userArray, authedUser)
+      if (redirectToReferrer === true) {
+        return <Redirect to={from} />
+      }
 
         return(
             <div>
-                <MenuNav/>
                 <Container>
 
                 {

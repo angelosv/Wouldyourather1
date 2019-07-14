@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Form, FormGroup, Nav, NavItem, NavLink, Col } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 import { connect} from 'react-redux'
 import {saveAuthedUser } from '../actions/authedUser'
 class MenuNav extends Component {
@@ -19,7 +19,7 @@ class MenuNav extends Component {
                 <h1>Would You Rather</h1>
                 <Nav>
                     <NavItem>
-                       <Link to={'/home/' + authedUserID}> HOME </Link>
+                       <Link to={'/home/'}> HOME </Link>
                     </NavItem>
                     <NavItem>
                         <Link to={'/new'}> NEW QUESTION </Link>
@@ -28,7 +28,7 @@ class MenuNav extends Component {
                         <Link to={'/leaderboard'}> LEADER BOARD </Link>
                     </NavItem>
                     <NavItem>
-                        <Link to={'/'}> LOGOUT </Link>
+                        <Link onClick={this.handleLogOut}> LOGOUT </Link>
                     </NavItem>
                 </Nav>
                 <hr />

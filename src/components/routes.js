@@ -1,61 +1,61 @@
-
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter, Switch , Route } from 'react-router-dom';
+import React, { Component} from 'react'
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect,
+    withRouter,
+    Switch
+} from 'react-router-dom'
+import { connect } from 'react-redux' 
+import { saveAuthedUser } from '../actions/authedUser'
+import Login from './login2'
 import PrivateRoute from './PrivateRoute';
+import Protected from './Protected'
+import AuthButton from './authButton'
 import Home from './Home'
-import Login from './Login'
-import addQuestion from './addQuestion'
-import leaderBoard from './leaderBoard'
-import { handleInitialData } from '../actions/shared'
 import QuestionDetails from './QuestionDetalis'
-import Loged from './logged'
+import leaderBoard from './leaderBoard'
+import addQuestion from './addQuestion'
 import NotFound from './NotFound'
+import MenuNav from './MenuNav'
 
-const Protected = () => <h3>Protected</h3>
+const Public = () => <h3>Public</h3>
+
+const Protected2 = () => <h3>Protected2</h3>
 
 class Routes extends Component {
-    componentDidMount() {
-        console.log('==== Routes mounted!');
-    }
-
-    render() {
-        console.log('Routes props', this.props.authedUser);
-        let  authedUser  = false
-        if (this.props.authedUser){
-            authedUser = true
-        }
-        console.log('authedUser ', authedUser);
-
-        return (
+render(){
+const {authedUser} = this.props
+    return (
+        <Router>
             <div>
-                <Loged authed={authedUser} />
-                {this.props.loading === true
-                    ? null
-                    :
-                    <BrowserRouter>
+                <MenuNav/>
+                <Switch>
 
-                    <Switch>
-
-                        <Route path='/' exact component={Login} />
-                        <Route path='/login' exact component={Login} />
-                        <PrivateRoute path='/home/' component={Home} authed={authedUser} />
-                        <PrivateRoute path='/new' component={addQuestion} authed={authedUser} />
-                        <PrivateRoute exact path="/questions/:id" component={QuestionDetails} authed={authedUser} />
-                        <PrivateRoute path='/leaderboard' component={leaderBoard} authed={authedUser} />
-                        <PrivateRoute path='/protected' component={Protected} authed={authedUser} />
-                        <Route component={NotFound} />
-
-                    </Switch>
-                    </BrowserRouter>
-
-                                }
-
-                                
+                    <Route path="/login" component={Login} authed={authedUser} />
+                    <PrivateRoute path='/home' component={Home} authed={authedUser} />
+                    <PrivateRoute path='/protected' component={Protected} authed={authedUser} />
+                    <PrivateRoute path='/protected2' component={Protected2} authed={authedUser} />
+                    <PrivateRoute exact path="/questions/:id" component={QuestionDetails} authed={authedUser} />
+                    <PrivateRoute path='/leaderboard' component={leaderBoard} authed={authedUser} />
+                    <PrivateRoute path='/new' component={addQuestion} authed={authedUser} />
+                    <Route component={Login} />
+                </Switch>
             </div>
-        );
+        </Router>
+    )
+}
+}
+function mapStateToProps({ users }) {
+    return {
+        users
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        selectedUser: (user) => dispatch(saveAuthedUser(user)),
     }
 }
 
-const mapStateToProps = state => ({ authedUser: state.authedUser });
-export default connect(mapStateToProps, handleInitialData)(Routes);
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)

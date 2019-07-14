@@ -6,7 +6,7 @@ class user_card extends Component {
 
         const { users, author, authedUser, optionOne, optionTwo, optionOneVotes, optionTwoVotes} = this.props
 
-        console.log('authedUser', optionOneVotes, optionOneVotes)
+        console.log('----->',Object.values(users)[2], optionOneVotes.includes(authedUser.id))
         return(
         <div className="card">
             <div className="row">
@@ -15,7 +15,7 @@ class user_card extends Component {
                     <p>Author: </p>
                     {
                                 authedUser.id === author 
-                                ? <p>you</p>
+                                ? <p>By you</p>
                                 : <p>{author}</p>
                     }
                     
@@ -29,14 +29,14 @@ class user_card extends Component {
 </h2>
                                 <p>{optionOne} <span>{optionOneVotes.length}</span>{
                                     optionOneVotes.includes(authedUser.id)
-                                        ? <span><b> You Chose</b></span> 
+                                        ? <span>You Chose</span> 
                                         : <span></span>
                                 
                                 
                                 }</p>
                                 <p>{optionTwo} <span>{optionTwoVotes.length}</span>{
                                     optionTwoVotes.includes(authedUser.id)
-                                        ? <span><b> You Chose</b></span>
+                                        ? <span><b>You Chose</b></span>
                                         : <span></span>
 
 
@@ -44,7 +44,7 @@ class user_card extends Component {
                                 
                         </div>
                         <div className="type">
-                            <div className="btn btn-success">See</div>
+                            <div className="btn btn-success">pro</div>
                         </div>
                     </div>
                 </div>

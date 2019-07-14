@@ -21,7 +21,9 @@ class ControlledTabs extends React.Component {
         onSelect={key => this.setState({ key })}
       >
         <Tab eventKey="answeredQuestions" title="Answered Questions">
+        <h3>HOOOOOO</h3>
           <Answered />
+
         </Tab>  
       <Tab eventKey="unansweredQuestions" title="Unanswered Questions">
           <Unanswered/>

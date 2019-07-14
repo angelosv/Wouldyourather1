@@ -12,9 +12,7 @@ class Unanswered extends Component {
         this.loadQuestionDetails = this.routeChange.bind(this);
     }
 
-    loadQuestionDetails(e, questionId) {
-  console.log('HEEEEEE')
-    }
+
     
     handleSubmit = (e) => {
         e.preventDefault();
