@@ -22,13 +22,13 @@ class MenuNav extends Component {
                        <Link to={'/home/'}> HOME </Link>
                     </NavItem>
                     <NavItem>
-                        <Link to={'/new'}> NEW QUESTION </Link>
+                        <Link to={'/add'}> NEW QUESTION </Link>
                     </NavItem>
                     <NavItem>
                         <Link to={'/leaderboard'}> LEADER BOARD </Link>
                     </NavItem>
                     <NavItem>
-                        <Link onClick={this.handleLogOut}> LOGOUT </Link>
+                        <Link to={''} onClick={this.handleLogOut}> LOGOUT </Link>
                     </NavItem>
                 </Nav>
                 <hr />

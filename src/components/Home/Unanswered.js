@@ -19,21 +19,16 @@ class Unanswered extends Component {
         this.props.saveQuestionAnswer(this.state.selectedOption);
     };
     render(){
-        const { authedUser, questions, users, unAnsweredQuestions } = this.props
-        console.log('TEXT', unAnsweredQuestions)
+        const { authedUser, questions, users, unAnsweredQuestions, unAnsweredQuestions2 } = this.props
+        console.log('TEXT', questions.author)
         return (
-            
-                unAnsweredQuestions.map(question => (
-                    <QuestionCard
-                        key={question.id}
-                        questionID={question.id}
-                        author={question.author}
-                        optionOne={question.optionOne.text}
-                        optionTwo={question.optionTwo.text}
-                        userID={question.author}
-                />
-            ))
-        
+            <div>
+                {unAnsweredQuestions.map((question) => (
+                    <li key={question}>
+                        <QuestionCard id={question}/>
+                    </li>
+                    ))}
+            </div>
         
            
            
@@ -56,9 +51,10 @@ function mapStateToProps({authedUser, questions, users}){
         questions: questions, 
         users: users, 
         unAnsweredQuestions: Object.values(unAnsweredQuestions)
+            .sort((a, b) => b.timestamp - a.timestamp).map((q) => q.id),
+    }
     }
     
 
-}
 
 export default connect(mapStateToProps)(Unanswered)

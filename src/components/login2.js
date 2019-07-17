@@ -42,8 +42,9 @@ class Login extends React.Component {
 
         const { from } = this.props.location.state || { from: { pathname: '/' } }
         const { redirectToReferrer } = this.state
+        const userid = this.state.selectedUser.id
 
-        console.log('FROM:', from, 'TRUE?', redirectToReferrer, 'Authed USer:', authedUser)
+        console.log('FROM:', userid )
 
         if (authedUser !== null) {
             return <Redirect to={from} />
@@ -66,7 +67,7 @@ class Login extends React.Component {
                         }   </Dropdown.Menu>
                 </Dropdown>
                 <p>You must log in to view the page</p>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" disabled={!userid} value="Submit" />
                 </Form>
 
             </div>

@@ -45,20 +45,21 @@ class addNewQuestion extends Component {
         
         return(
             <div>
+                <Form onSubmit={this.handleSubmit}>
+
             <h1>NewQuestion</h1>
             <Card>
                 <Card.Header>Create a new Question</Card.Header>
                 <Card.Body>
                     <Card.Title>Would you rather...</Card.Title>
-                    <Card.Text>
-                            <Form onSubmit={this.handleSubmit}>
+      
                                 <Form.Group controlId="">
                                     <Form.Control type="text" placeholder="Enter Option One" onChange={this.handleChangeOptionOne} />
                                         <Form.Text className="text-muted">
                                         </Form.Text>
                                 </Form.Group>
                                 
-                                <Form.Group>or</Form.Group>
+                                <div>or</div>
                                 <Form.Group controlId="">
                                     <Form.Control type="text" placeholder="Enter Option One" onChange={this.handleChangeOptionTwo} />
                                     <Form.Text className="text-muted">
@@ -68,10 +69,11 @@ class addNewQuestion extends Component {
                             <Button variant="primary" type="submit">
                             Submit
                             </Button>
-                        </Form>
-                    </Card.Text>
+                    
                 </Card.Body>
             </Card>
+                </Form>
+
             </div>
         )
     }

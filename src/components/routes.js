@@ -19,6 +19,7 @@ import leaderBoard from './leaderBoard'
 import addQuestion from './addQuestion'
 import NotFound from './NotFound'
 import MenuNav from './MenuNav'
+import MissingQuestion from "./MissingQuestion";
 
 const Public = () => <h3>Public</h3>
 
@@ -37,9 +38,11 @@ const {authedUser} = this.props
                     <PrivateRoute path='/home' component={Home} authed={authedUser} />
                     <PrivateRoute path='/protected' component={Protected} authed={authedUser} />
                     <PrivateRoute path='/protected2' component={Protected2} authed={authedUser} />
-                    <PrivateRoute exact path="/questions/:id" component={QuestionDetails} authed={authedUser} />
+                    <PrivateRoute path="/questions/:id" component={QuestionDetails} authed={authedUser} />
                     <PrivateRoute path='/leaderboard' component={leaderBoard} authed={authedUser} />
-                    <PrivateRoute path='/new' component={addQuestion} authed={authedUser} />
+                    <PrivateRoute path='/add' component={addQuestion} authed={authedUser} />
+                    <Route path='/missingQuestion' component={MissingQuestion}  />
+
                     <Route component={Login} />
                 </Switch>
             </div>

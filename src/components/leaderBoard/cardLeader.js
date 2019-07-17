@@ -9,16 +9,14 @@ class CardLeader extends Component{
         const { id, avatarUrl, name, answeredResults, questionsResults, ranking,  } = this.props
 console.log('THISPROPS', this.props)
         return(
-            <div>
+            <div key={id}>
                 <Card key={id}>
                     <Card.Header>Featured</Card.Header>
                     <Card.Body>
                     <Avatar src={avatarUrl} />
                         <Card.Title>{name}</Card.Title>
-                        <Card.Text>
-                            <p>Answered Questions: {answeredResults}</p>
-                            <p>Questions Asked: {questionsResults}</p>
-                        </Card.Text>
+                           <div>Answered Questions: {answeredResults}</div>
+                            <div>Questions Asked: {questionsResults}</div>
                         <h4>Total Score: {ranking}</h4>
                     </Card.Body>
                 </Card>

@@ -6,7 +6,7 @@ class user_card extends Component {
 
         const { users, author, authedUser, optionOne, optionTwo, optionOneVotes, optionTwoVotes} = this.props
 
-        console.log('----->',Object.values(users)[2], optionOneVotes.includes(authedUser.id))
+        console.log('->',Object.values(users)[2], optionOneVotes.includes(authedUser.id))
         return(
         <div className="card">
             <div className="row">
@@ -55,7 +55,7 @@ class user_card extends Component {
     }
 }
 
-const mapStateToProps = ({ users, authedUser }, {  userID  }) => {
+const mapStateToProps = ({ users, authedUser }, { userID }) => {
     const user = users[userID];
     return {
         users: user,

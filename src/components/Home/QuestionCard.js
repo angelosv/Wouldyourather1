@@ -12,22 +12,22 @@ class QuestionCard extends Component {
 
 
 
-    loadQuestionDetails(e, questionID) {
-        let path = `/questions/` + questionID
+    loadQuestionDetails(e, question) {
+        let path = `/questions/` + question
         this.props.history.push(path)    }
 
 render(){
 
-    const { users, author, questionID} = this.props
-    const avatar =  users.users[author].avatarURL
-
+    const { users, author, question, id} = this.props
+   // const avatar =  users.users[author].avatarURL
+    console.log('This is a Question@: ', question.optionOne.text)
    return(
-       <div className="card" onClick={(e) => this.loadQuestionDetails(e, questionID)}>
-           <Avatar src={avatar}/>
+       <div className="card" onClick={(e) => this.loadQuestionDetails(e, id)}>
+           <Avatar src={users[question.author].avatarURL}/>
                <h3> Would you rather... </h3>
-               <label className="question-choice" htmlFor='optionOne'> {this.props.optionOne} </label>
+           <label className="question-choice" htmlFor='optionOne'>{question.optionOne.text} </label>
                <br />
-               <label className="question-choice" htmlFor='optionTwo'>{this.props.optionTwo}</label>
+           <label className="question-choice" htmlFor='optionTwo'>{question.optionTwo.text}</label>
                <br />
 
        </div>
@@ -36,11 +36,11 @@ render(){
 
 }
 
-const mapStateToProps = (users, authedUser, questions)=>{
+const mapStateToProps = ({users, authedUser, questions}, {id})=>{
 return{
     users: users,
     authedUser: authedUser,
-    questions: questions,
+    question: questions[id],
 }
 }
 
