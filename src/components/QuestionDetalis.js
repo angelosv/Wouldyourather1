@@ -10,7 +10,7 @@ import MissingQuestion from "./MissingQuestion";
 class QuestionDetalis extends Component {
     state = {
         answer: '',
-        answered: false
+        answered: true
     }
 
     handleChange = (e) => {
@@ -19,6 +19,9 @@ class QuestionDetalis extends Component {
         this.setState({ answer: answer })
     }
 
+    answered = () =>{
+        this.setState({ answered: true })
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -38,11 +41,12 @@ class QuestionDetalis extends Component {
             return <Redirect to={'/missingQuestion'} />
         }
 
-
         const total = question.optionOne.votes.length + question.optionTwo.votes.length;
 
         const percOne = financial((question.optionOne.votes.length / total) * 100);
         const percTwo = financial((question.optionTwo.votes.length / total) * 100);
+        const prov = question.optionOne.votes.includes(authedUser.id) || question.optionTwo.votes.includes(authedUser.id)
+        console.log('ANSWERED>>>>', question.optionOne.votes.includes(authedUser.id) || question.optionTwo.votes.includes(authedUser.id))
         return(
             <div>
                 <div className="card">
@@ -52,8 +56,9 @@ class QuestionDetalis extends Component {
                     <h3> Would you rather... </h3>
 
                     {
-                            this.state.answered === false ?
-
+                        
+                        prov === false ?
+                                
                             <div> <input type='radio' name='option' value='optionOne' id='optionOne' onChange={this.handleChange} />
                                 <label className="question-choice" htmlFor='optionOne'> {question.optionOne.text} </label>
                                 <br />
@@ -65,11 +70,12 @@ class QuestionDetalis extends Component {
                             :
                             <div>
                                     <div><p>Option One ({question.optionOne.votes.length} Votes) {
-                                        this.state.answer === 'optionOne'
+                                        this.state.answer === 'optionOne' || question.optionOne.votes.includes(authedUser.id) 
+
                                         ? <span><b>Your Vote</b> </span>
                                         : null
 
-                                    }/ Option Two ({question.optionTwo.votes.length} Votes) {this.state.answer === 'optionTwo'
+                                    }/ Option Two ({question.optionTwo.votes.length} Votes) {this.state.answer === 'optionTwo' || question.optionTwo.votes.includes(authedUser.id)
                                         ? <span><b>Your Vote</b> </span>
                                         : null
 } </p>
@@ -109,6 +115,11 @@ function financial(x) {
 
 function mapStateToProps({ questions, users, authedUser }, { match }) {
    
+    let answeredQuestions = {}
+    answeredQuestions = Object.values(questions).filter((question) =>
+        question.optionOne.votes.includes(authedUser.id) || question.optionTwo.votes.includes(authedUser.id));
+
+
     let answer, percOne, percTwo, total
     const { id } = match.params
     const question = questions[id];

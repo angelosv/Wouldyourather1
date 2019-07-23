@@ -9,7 +9,9 @@ class Answered extends Component {
         loading: true,
 
     }
-
+    constuctor() {
+        this.loadQuestionDetails = this.routeChange.bind(this);
+    }
 
     render() {
         const { authedUser, questions, users, answeredQuestions } = this.props
@@ -18,17 +20,15 @@ class Answered extends Component {
             <div>
                 {
                     answeredQuestions.map(question => (
+                        <li key={question}>
+
                         <UserCard
-                            key={question.id}
-                            author={question.author}
-                            optionOne={question.optionOne.text}
-                            optionTwo={question.optionTwo.text}
-                            userID={question.author}
-                            optionOneVotes={question.optionOne.votes}
-                            optionTwoVotes={question.optionTwo.votes}
+                            id={question}
 
                         />
-                    )
+                        </li>
+
+                        )
                     )
                 }
             </div>
@@ -45,7 +45,8 @@ function mapStateToProps({ authedUser, questions, users }){
         authedUser: authedUser,
         questions: questions, 
         users: users, 
-        answeredQuestions: Object.values(answeredQuestions),
+        answeredQuestions: Object.values(answeredQuestions)
+            .sort((a, b) => b.timestamp - a.timestamp).map((q) => q.id)
 
 }}
 

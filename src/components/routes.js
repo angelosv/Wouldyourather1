@@ -33,7 +33,6 @@ const {authedUser} = this.props
             <div>
                 <MenuNav/>
                 <Switch>
-
                     <Route path="/login" component={Login} authed={authedUser} />
                     <PrivateRoute path='/home' component={Home} authed={authedUser} />
                     <PrivateRoute path='/protected' component={Protected} authed={authedUser} />

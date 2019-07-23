@@ -40,7 +40,7 @@ class Login extends React.Component {
     render() {
         const { users, authedUser } = this.props
 
-        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { from } = this.props.location.state || { from: { pathname: '/home/' } }
         const { redirectToReferrer } = this.state
         const userid = this.state.selectedUser.id
 
